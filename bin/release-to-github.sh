@@ -48,8 +48,11 @@ git push origin $BRANCH
 # Create the zip archive
 ./bin/build-zip.sh
 
+# Create the npm package
+npm pack
+
 # Create the new release.
-hub release create -m $VERSION -m "Release of version $VERSION." -t $BRANCH "v${VERSION}" --attach "./symlink-addon.zip"
+hub release create -m $VERSION -m "Release of version $VERSION." -t $BRANCH "v${VERSION}" --attach "./local-addon-symlinks-$VERSION.zip" --attach "./local-addon-symlinks.zip"
 
 git checkout $CURRENTBRANCH
 git branch -D $BRANCH

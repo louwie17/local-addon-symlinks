@@ -25,6 +25,7 @@ coverage
 
 # zip
 symlink-addon.zip
+symlink-addon.tgz
 
 # nyc test coverage
 .nyc_output

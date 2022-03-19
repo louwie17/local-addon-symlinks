@@ -1,6 +1,6 @@
 {
-    "name": "symlinks",
-    "productName": "symlinks",
+    "name": "local-addon-symlinks",
+    "productName": "Symlinks",
     "version": "1.0.0",
     "author": "Lourens Schep",
     "keywords": [
@@ -58,14 +58,15 @@
         "prop-types": "^15.6.2",
         "react": "^16.10.2",
         "react-dom": "^16.10.2",
-        "react-redux": "^7.2.6",
-        "react-router-dom": "^5.1.2"
+        "react-redux": "^7.2.6"
     },
     "bundledDependencies": [
         "classnames",
         "dateformat",
         "@getflywheel/local-components",
-        "prop-types"
+        "prop-types",
+        "fs-extra",
+        "lodash"
     ],
     "engines": {
         "local-by-flywheel": "^6.1.3"
