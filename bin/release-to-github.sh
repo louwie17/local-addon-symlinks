@@ -52,7 +52,7 @@ git push origin $BRANCH
 npm pack
 
 # Create the new release.
-hub release create -m $VERSION -m "Release of version $VERSION." -t $BRANCH "v${VERSION}" --attach "./local-addon-symlinks-$VERSION.zip" --attach "./local-addon-symlinks.zip"
+hub release create -m $VERSION -m "Release of version $VERSION." -t $BRANCH "v${VERSION}" --attach "./local-addon-symlinks-$VERSION.tgz" --attach "./local-addon-symlinks.zip"
 
 git checkout $CURRENTBRANCH
 git branch -D $BRANCH
