@@ -6,6 +6,10 @@ A [Local](https://localwp.com/) add on for adding symlinks for plugins to new si
 
 ## Installation
 
+-   Download the latest release bundle (local-addon-symlinks-<version>.tgz) from [releases](https://github.com/louwie17/local-addon-symlinks/releases)
+-   Open local and go to Add-ons > Installed
+-   Click 'Install from disk' and select the previously downloaded bundle.
+
 ### Clone
 
 Clone the repository into the following directory depending on your platform:
