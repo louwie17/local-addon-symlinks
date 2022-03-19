@@ -9,7 +9,6 @@ echo "Creating archive... 🎁"
 zip -r "local-addon-symlinks.zip" \
 	package.json \
 	lib/ \
-	node_modules/ \
 	src/ \
 	images/ \
 	icon.svg \
