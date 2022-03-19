@@ -73,6 +73,7 @@
     "files": [
         "lib/",
         "images/",
+        "style.css",
         "icon.svg"
     ]
 }
