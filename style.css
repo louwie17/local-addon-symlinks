@@ -1,0 +1,23 @@
+.symlinks-addon__default_symlinks {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.symlinks-addon__default_symlinks .TitleBar {
+    padding-left: 15px;
+    align-items: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.symlinks-addon__description {
+    padding: 15px;
+}
+
+.symlinks-addon__description .TextButton {
+    padding: 0px 8px;
+}
+
+.symlinks-addon__modal {
+    width: 650px;
+}

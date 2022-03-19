@@ -1,0 +1,32 @@
+# Local Symlink Add-on
+
+A [Local](https://localwp.com/) add on for adding symlinks for plugins to new sites. These can be set on individual sites, or in preferences as a default.
+
+![](./symlinks-full-demo.gif)
+
+## Installation
+
+### Clone
+
+Clone the repository into the following directory depending on your platform:
+
+-   macOS: `~/Library/Application Support/Local/addons`
+-   Windows: `C:\Users\username\AppData\Roaming\Local\addons`
+-   Debian Linux: `~/.config/Local/addons`
+
+_You can replace 'Local' with 'Local Beta' if you want to create the add-on for Local Beta._
+
+### Install Add-on Dependencies
+
+`yarn install` or `npm install`
+
+### Add Add-on to Local
+
+1. Clone repo directly into the add-ons folder (paths described above)
+2. `yarn install` or `npm install` (install dependencies)
+3. `yarn build` or `npm run build`
+4. Open Local and enable add-on
+
+## License
+
+MIT
