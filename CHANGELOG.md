@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.1.0] - 2022-04-10
 
 -   Fix: Allow users to successfully add symlinks for individual sites.
 -   Fix: Make sure new sites don't include disabled symlinks set in default section.
