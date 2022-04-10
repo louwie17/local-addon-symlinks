@@ -10,11 +10,23 @@ import {
 import { NewSiteInfo } from '@getflywheel/local';
 
 async function linkSymlinks(symlinks, siteId: string) {
+    const errors = [];
     for (const symlink of symlinks) {
         if (!symlink.enabled) {
             continue;
         }
-        const site = LocalMain.SiteData.getSite(siteId);
+        const site =
+            LocalMain.getServiceContainer().cradle.siteData.getSite(siteId);
+
+        try {
+            const stats = await fs.lstat(
+                path.join(site.paths.webRoot, symlink.dest)
+            );
+            if (stats && stats.isSymbolicLink()) {
+                continue;
+            }
+        } catch (err) {}
+
         LocalMain.getServiceContainer().cradle.localLogger.log(
             'info',
             `Symlinking ${symlink.source} to ${path.join(
@@ -22,12 +34,22 @@ async function linkSymlinks(symlinks, siteId: string) {
                 symlink.dest
             )}.`
         );
-        await fs.symlink(
-            symlink.source,
-            path.join(site.paths.webRoot, symlink.dest),
-            'dir'
-        );
+        try {
+            const result = await fs.symlink(
+                symlink.source,
+                path.join(site.paths.webRoot, symlink.dest),
+                'dir'
+            );
+            if (result) {
+                errors.push(result);
+            }
+        } catch (e) {
+            if (e) {
+                errors.push(e);
+            }
+        }
     }
+    return errors;
 }
 
 async function unlinkOldSymlinks(newSymlinks, siteId: string) {
@@ -35,7 +57,11 @@ async function unlinkOldSymlinks(newSymlinks, siteId: string) {
     if (site && site.symlinks) {
         for (const symlink of site.symlinks) {
             if (!newSymlinks.find((v) => v.dest === symlink.dest)) {
-                await fs.unlink(path.join(site.paths.webRoot, symlink.dest));
+                try {
+                    await fs.unlink(
+                        path.join(site.paths.webRoot, symlink.dest)
+                    );
+                } catch (err) {}
             }
         }
     }
@@ -53,12 +79,40 @@ export default function (context) {
                 'info',
                 `Saving symlinks for site ${siteId}.`
             );
-            const dataService = new LocalMain.Services.SiteDataService();
-            dataService.updateSite(siteId, {
-                id: siteId,
-                symlinks,
-            } as Partial<SymlinkSite>);
-            await linkSymlinks(symlinks, siteId);
+            const site =
+                LocalMain.getServiceContainer().cradle.siteData.getSite(
+                    siteId
+                ) as SymlinkSite;
+            const originalSymlinks = site.symlinks;
+            const dataService = LocalMain.getServiceContainer().cradle.siteData;
+            try {
+                dataService.updateSite(siteId, {
+                    id: siteId,
+                    symlinks,
+                } as Partial<SymlinkSite>);
+            } catch (err) {
+                LocalMain.getServiceContainer().cradle.localLogger.log(
+                    'error',
+                    `Failed saving symlinks for site ${siteId}.`
+                );
+                LocalMain.sendIPCEvent(IPC_EVENTS.SAVE_SITE_SYMLINKS_FAILURE, [
+                    err,
+                ]);
+                return;
+            }
+            const errors = await linkSymlinks(symlinks, siteId);
+            if (errors && errors.length > 0) {
+                dataService.updateSite(siteId, {
+                    id: siteId,
+                    symlinks: originalSymlinks,
+                } as Partial<SymlinkSite>);
+                LocalMain.sendIPCEvent(
+                    IPC_EVENTS.SAVE_SITE_SYMLINKS_FAILURE,
+                    errors
+                );
+            } else {
+                LocalMain.sendIPCEvent(IPC_EVENTS.SAVE_SITE_SYMLINKS_SUCCESS);
+            }
         }
     );
 
@@ -98,7 +152,9 @@ export default function (context) {
                 (!newSiteInfo.customOptions ||
                     newSiteInfo?.customOptions?.useDefaultSymlinks === 'on')
             ) {
-                site.symlinks = preferences.symlinks;
+                site.symlinks = preferences.symlinks.filter(
+                    (symlink) => symlink.enabled
+                );
             }
             return site;
         }

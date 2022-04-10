@@ -5,6 +5,8 @@ export const IPC_EVENTS = {
     READ_PREFERENCES_FROM_DISK: 'symlinks:read-preferences-from-disk',
     READ_SITES_FROM_DISK: 'symlinks:read-sites-from-disk',
     SAVE_SITE_SYMLINKS: 'symlinks:save-site-symlinks',
+    SAVE_SITE_SYMLINKS_SUCCESS: 'symlinks:save-site-symlinks-success',
+    SAVE_SITE_SYMLINKS_FAILURE: 'symlinks:save-site-symlinks-failure',
 };
 
 export const PREFERENCES_FILE_NAME = 'symlinks-plugin-preferences';
