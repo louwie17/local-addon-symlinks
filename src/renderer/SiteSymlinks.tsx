@@ -1,8 +1,12 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import os from 'os';
 import fs from 'fs-extra';
 import { remote, ipcRenderer } from 'electron';
-import { TableListRepeater, BrowseInput } from '@getflywheel/local-components';
+import {
+    TableListRepeater,
+    BrowseInput,
+    Banner,
+} from '@getflywheel/local-components';
 import { confirm } from '@getflywheel/local/renderer';
 import { formatHomePath } from '../helpers';
 import { IPC_EVENTS } from '../constants';
@@ -10,6 +14,7 @@ import { IPC_EVENTS } from '../constants';
 type Symlink = {
     dest: string;
     source: string;
+    enabled: boolean;
 };
 
 const { dialog } = remote;
@@ -18,8 +23,51 @@ export function SiteSymlinks(props) {
     const [symlinks, setSymlinks] = useState<Symlink[]>(
         props.site.symlinks || []
     );
-    const [provisioning, setProvisiong] = useState(false);
-    const [isChanged, setIsChanged] = useState(false);
+    const symlinksBeingSaved = useRef<Symlink[]>();
+    const [provisioning, setProvisioning] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
+
+    useEffect(() => {
+        const successCallback = (event) => {
+            setShowSuccess(true);
+            setSymlinks(symlinksBeingSaved.current);
+            setProvisioning(false);
+            setTimeout(() => {
+                setShowSuccess(false);
+            }, 8000);
+        };
+        ipcRenderer.on(IPC_EVENTS.SAVE_SITE_SYMLINKS_SUCCESS, successCallback);
+        const failureCallback = (event, errors) => {
+            const errorMessages = [];
+            for (const error of errors) {
+                if (error && error.code) {
+                    if (error.code === 'EEXIST' && error.dest) {
+                        errorMessages.push(`"${error.dest}" already exists.`);
+                    } else {
+                        errorMessages.push(
+                            `"${error.dest}" failed with code: ${error.code}.`
+                        );
+                    }
+                }
+            }
+            dialog.showErrorBox(
+                'Failed to save config and update symlink folders.',
+                errorMessages.join('\n')
+            );
+            setProvisioning(false);
+        };
+        ipcRenderer.on(IPC_EVENTS.SAVE_SITE_SYMLINKS_FAILURE, failureCallback);
+        return () => {
+            ipcRenderer.removeListener(
+                IPC_EVENTS.SAVE_SITE_SYMLINKS_SUCCESS,
+                successCallback
+            );
+            ipcRenderer.removeListener(
+                IPC_EVENTS.SAVE_SITE_SYMLINKS_FAILURE,
+                failureCallback
+            );
+        };
+    }, []);
 
     const remapSymlinks = async (addedSymlinks: Symlink[]) => {
         const errors = [];
@@ -56,8 +104,8 @@ export function SiteSymlinks(props) {
             showBottomHr: false,
         });
 
-        setProvisiong(false);
-        setSymlinks(addedSymlinks);
+        setProvisioning(true);
+        symlinksBeingSaved.current = addedSymlinks;
 
         ipcRenderer.send(
             IPC_EVENTS.SAVE_SITE_SYMLINKS,
@@ -133,6 +181,15 @@ export function SiteSymlinks(props) {
 
     return (
         <div style={{ flex: '1', overflowY: 'auto' }}>
+            {showSuccess ? (
+                <Banner
+                    className="successNotificationBanner"
+                    variant="success"
+                    icon="false"
+                >
+                    Successfully saved and symlinked folders.
+                </Banner>
+            ) : null}
             <TableListRepeater
                 header={header}
                 repeatingContent={repeatingContent}
@@ -150,6 +207,7 @@ export function SiteSymlinks(props) {
                 itemTemplate={{
                     source: '~',
                     dest: '/wp-content/plugins',
+                    enabled: true,
                 }}
             />
         </div>
