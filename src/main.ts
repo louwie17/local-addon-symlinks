@@ -152,7 +152,9 @@ export default function (context) {
                 (!newSiteInfo.customOptions ||
                     newSiteInfo?.customOptions?.useDefaultSymlinks === 'on')
             ) {
-                site.symlinks = preferences.symlinks;
+                site.symlinks = preferences.symlinks.filter(
+                    (symlink) => symlink.enabled
+                );
             }
             return site;
         }
