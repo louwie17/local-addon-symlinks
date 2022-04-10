@@ -30,27 +30,11 @@ export function SiteSymlinks(props) {
             }
 
             if (!fs.existsSync(symlink.source)) {
-                errors.push('"' + symlink.source + '" is not a directory.');
-            } else if (os.platform() === 'win32') {
-                if (formatHomePath(symlink.source).indexOf('C:\\Users') !== 0) {
-                    errors.push('Path does not start with C:\\Users');
-                }
-            } else {
-                if (
-                    symlink.source.indexOf('/') !== 0 ||
-                    symlink.dest.indexOf('/') !== 0
-                ) {
-                    errors.push('Path does not start with slash.');
-                }
+                errors.push(`"${symlink.source}" does not exist.`);
+            }
 
-                if (
-                    formatHomePath(symlink.source).indexOf('/Users') !== 0 &&
-                    formatHomePath(symlink.dest).indexOf('/wp-content') !== 0
-                ) {
-                    errors.push(
-                        'Path does not start with /Users or /wp-content'
-                    );
-                }
+            if (formatHomePath(symlink.dest).indexOf('/wp-content') !== 0) {
+                errors.push('Destination does not start with /wp-content');
             }
         });
 
