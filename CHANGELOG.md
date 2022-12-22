@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.0.0] - 2022-12-22
+
+-   Fix: Update add-on support for Electron 21 and Local 6.6.0
+-   Add: Add `link-addon` package script for easy linking for local development.
+-   Update: Update several dependencies.
+
 ## [1.1.0] - 2022-04-10
 
 -   Fix: Allow users to successfully add symlinks for individual sites.
