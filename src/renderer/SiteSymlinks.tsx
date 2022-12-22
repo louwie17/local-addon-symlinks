@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import os from 'os';
 import fs from 'fs-extra';
+import path from 'path';
 import { dialog, ipcRenderer } from 'electron';
 import {
     TableListRepeater,
@@ -152,6 +153,13 @@ export function SiteSymlinks(props) {
                             return false;
                         }
 
+                        if (symlink.dest === '/wp-content/plugins') {
+                            const sourceFolderName = symlink.source
+                                .split(path.sep)
+                                .pop();
+                            symlink.dest =
+                                '/wp-content/plugins/' + sourceFolderName;
+                        }
                         updateItem(symlink);
                         return true;
                     }}
