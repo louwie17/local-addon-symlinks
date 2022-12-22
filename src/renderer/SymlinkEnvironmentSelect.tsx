@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Checkbox, Switch, Text } from '@getflywheel/local-components';
+import { Checkbox, Text } from '@getflywheel/local-components';
 import { useStoreSelector } from './store/store';
 
 type Props = {

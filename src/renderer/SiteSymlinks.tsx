@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import os from 'os';
 import fs from 'fs-extra';
-import { remote, ipcRenderer } from 'electron';
+import { dialog, ipcRenderer } from 'electron';
 import {
     TableListRepeater,
     BrowseInput,
@@ -16,8 +16,6 @@ type Symlink = {
     source: string;
     enabled: boolean;
 };
-
-const { dialog } = remote;
 
 export function SiteSymlinks(props) {
     const [symlinks, setSymlinks] = useState<Symlink[]>(

@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import os from 'os';
 import fs from 'fs-extra';
-import { remote } from 'electron';
+import { dialog } from 'electron';
 import {
     TableListRepeater,
     BrowseInput,
@@ -16,8 +16,6 @@ import { Symlink } from '../types';
 import path from 'path';
 import { FlyModal } from '@getflywheel/local-components';
 import { TextButton } from '@getflywheel/local-components';
-
-const { dialog } = remote;
 
 export function DefaultSymlinks(props) {
     const [showScreenshot, setShowScreenshot] = useState(false);
