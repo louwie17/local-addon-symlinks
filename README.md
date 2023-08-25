@@ -24,12 +24,13 @@ _You can replace 'Local' with 'Local Beta' if you want to create the add-on for 
 
 `yarn install` or `npm install`
 
-### Add Add-on to Local
+### Add Add-on to Local for Development
 
 1. Clone repo directly into the add-ons folder (paths described above)
 2. `yarn install` or `npm install` (install dependencies)
 3. `yarn build` or `npm run build`
-4. Open Local and enable add-on
+4. `yarn link-addon`
+5. Open Local and enable add-on
 
 ## License
 
