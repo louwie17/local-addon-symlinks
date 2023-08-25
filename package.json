@@ -28,7 +28,8 @@
         "watch-main": "tsc --watch",
         "build-renderer": "yarn webpack --config webpack.config.js",
         "watch-renderer": "yarn build-renderer --watch",
-        "link-addon": "ts-node ./bin/symlink.ts"
+        "link-addon": "ts-node ./bin/symlink.ts",
+        "unlink-addon": "ts-node ./bin/unlink.ts"
     },
     "devDependencies": {
         "@getflywheel/eslint-config-local": "1.0.4",
