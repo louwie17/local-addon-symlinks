@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import os from 'os';
 import fs from 'fs-extra';
 import path from 'path';
-import { dialog, ipcRenderer } from 'electron';
+import { ipcRenderer } from 'electron';
 import {
     TableListRepeater,
     BrowseInput,
@@ -49,7 +49,8 @@ export function SiteSymlinks(props) {
                     }
                 }
             }
-            dialog.showErrorBox(
+            ipcRenderer.send(
+                IPC_EVENTS.SHOW_ERROR_DIALOG,
                 'Failed to save config and update symlink folders.',
                 errorMessages.join('\n')
             );
@@ -86,10 +87,12 @@ export function SiteSymlinks(props) {
         });
 
         if (errors.length) {
-            return dialog.showErrorBox(
+            ipcRenderer.send(
+                IPC_EVENTS.SHOW_ERROR_DIALOG,
                 'There were errors with the path symlinks',
                 errors.join('\n')
             );
+            return;
         }
 
         await confirm({
@@ -138,14 +141,16 @@ export function SiteSymlinks(props) {
                             os.platform() === 'win32' &&
                             symlink.source.indexOf('C:\\Users') !== 0
                         ) {
-                            dialog.showErrorBox(
+                            ipcRenderer.send(
+                                IPC_EVENTS.SHOW_ERROR_DIALOG,
                                 'Error',
                                 'Sorry! You must provide a path in C:\\Users.'
                             );
 
                             return false;
                         } else if (symlink.source.indexOf('/Users') !== 0) {
-                            dialog.showErrorBox(
+                            ipcRenderer.send(
+                                IPC_EVENTS.SHOW_ERROR_DIALOG,
                                 'Error',
                                 'Sorry! You must provide a path in /Users.'
                             );

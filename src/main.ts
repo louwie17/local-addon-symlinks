@@ -1,6 +1,7 @@
 import * as LocalMain from '@getflywheel/local/main';
 import * as path from 'path';
 import * as fs from 'fs-extra';
+import { dialog } from 'electron';
 import { IPC_EVENTS } from './constants';
 import { Preferences, SymlinkSite } from './types';
 import {
@@ -115,6 +116,10 @@ export default function (context) {
             }
         }
     );
+
+    ipcMain.on(IPC_EVENTS.SHOW_ERROR_DIALOG, (event, title, message) => {
+        dialog.showErrorBox(title, message);
+    });
 
     /**
      * Read a Preferences object from disk

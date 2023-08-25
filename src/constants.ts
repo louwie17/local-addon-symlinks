@@ -7,6 +7,7 @@ export const IPC_EVENTS = {
     SAVE_SITE_SYMLINKS: 'symlinks:save-site-symlinks',
     SAVE_SITE_SYMLINKS_SUCCESS: 'symlinks:save-site-symlinks-success',
     SAVE_SITE_SYMLINKS_FAILURE: 'symlinks:save-site-symlinks-failure',
+    SHOW_ERROR_DIALOG: 'symlinks:show-error-dialog',
 };
 
 export const PREFERENCES_FILE_NAME = 'symlinks-plugin-preferences';
