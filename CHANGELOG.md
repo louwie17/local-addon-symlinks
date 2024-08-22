@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.2.0] - 2024-08-22
+
+-   Update: Update `@getflywheel/local-components` to fix browse dialog not working.
+
 ## [2.1.0] - 2023-08-25
 
 -   Fix: Move `showErrorBox` call to main process, as it is not available in Renderer.
