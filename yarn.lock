@@ -72,11 +72,6 @@
     global-agent "^3.0.0"
     global-tunnel-ng "^2.7.1"
 
-"@electron/remote@^2.0.8":
-  version "2.0.9"
-  resolved "https://registry.yarnpkg.com/@electron/remote/-/remote-2.0.9.tgz#092ff085407bc907f45b89a72c36faa773ccf2d9"
-  integrity sha512-LR0W0ID6WAKHaSs0x5LX9aiG+5pFBNAJL6eQAJfGkCuZPUa6nZz+czZLdlTDETG45CgF/0raSvCtYOYUpr6c+A==
-
 "@eslint/eslintrc@^0.4.3":
   version "0.4.3"
   resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-0.4.3.tgz#9e42981ef035beb3dd49add17acb96e8ff6f394c"
@@ -97,15 +92,12 @@
   resolved "https://registry.yarnpkg.com/@getflywheel/eslint-config-local/-/eslint-config-local-1.0.4.tgz#2fab6bb77b63ec123e831534f50e1d3c7c135571"
   integrity sha512-GvnhhT3XaNipDdVvHifWbKjoFpLAbezkKsYBGfDF4uG/9gWo5UX9YLANPlzSLRyvgBrX0+27S5Cu8YE/yM7kPg==
 
-"@getflywheel/local-components@^17.0.0":
-  version "17.6.3"
-  resolved "https://registry.yarnpkg.com/@getflywheel/local-components/-/local-components-17.6.3.tgz#6fdc3621b5a56c85de1a530996fe3523c58a7b13"
-  integrity sha512-/Qb5x9Ll1qt1KDughFDHHsqFDGSOtSIhgNAk+GgalRS7X1oiO0d+SG/GjRk7wKIceDo+F7oM+pPTukBofoIhfQ==
+"@getflywheel/local-components@^17.8.0":
+  version "17.8.0"
+  resolved "https://registry.yarnpkg.com/@getflywheel/local-components/-/local-components-17.8.0.tgz#ceb0219aedf183f14f5f84825111e3c3af044a7f"
+  integrity sha512-8BJvS3hNm3TSoF08KCqCvsBvy/5iORGOeM5kV25eAHcPlx1tc++KmtE+HuBvJ1iYVM3mdl3scCb37bEhCKpA1g==
   dependencies:
-    "@electron/remote" "^2.0.8"
     "@popperjs/core" "^2.9.2"
-    "@types/lz-string" "^1.3.34"
-    "@types/untildify" "^3.0.0"
     classnames "^2.2.6"
     clipboard-copy "^3.1.0"
     fuse.js "^6.6.2"
@@ -121,6 +113,8 @@
     react-popper "^2.2.5"
     react-resize-observer "^1.1.1"
     react-router-dom "^5.0.1"
+    react-timeago "^4.1.9"
+    react-toastify "^9.1.1"
     react-truncate-markup "^3.0.0"
     untildify "^4.0.0"
 
@@ -306,11 +300,6 @@
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==
 
-"@types/lz-string@^1.3.34":
-  version "1.3.34"
-  resolved "https://registry.yarnpkg.com/@types/lz-string/-/lz-string-1.3.34.tgz#69bfadde419314b4a374bf2c8e58659c035ed0a5"
-  integrity sha512-j6G1e8DULJx3ONf6NdR5JiR2ZY3K3PaaqiEuKYkLQO0Czfi1AzrtjfnfCROyWGeDd5IVMKCwsgSmMip9OWijow==
-
 "@types/node@*", "@types/node@>=6":
   version "18.11.17"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.11.17.tgz#5c009e1d9c38f4a2a9d45c0b0c493fe6cdb4bcb5"
@@ -354,11 +343,6 @@
   version "0.16.2"
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.2.tgz#1a62f89525723dde24ba1b01b092bf5df8ad4d39"
   integrity sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==
-
-"@types/untildify@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@types/untildify/-/untildify-3.0.0.tgz#cd3e6624e46ccf292d3823fb48fa90dda0deaec0"
-  integrity sha512-FTktI3Y1h+gP9GTjTvXBP5v8xpH4RU6uS9POoBcGy4XkS2Np6LNtnP1eiNNth4S7P+qw2c/rugkwBasSHFzJEg==
 
 "@types/yauzl@^2.9.1":
   version "2.10.0"
@@ -945,6 +929,11 @@ clone-response@^1.0.2:
   integrity sha512-ROoL94jJH2dUVML2Y/5PEDNaSHgeOdSDicUyS7izcF63G6sTc/FTjLub4b8Il9S8S0beOfYt0TaA5qvFK+w0wA==
   dependencies:
     mimic-response "^1.0.0"
+
+clsx@^1.1.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.2.1.tgz#0ddc4a20a549b59c93a4116bb26f5294ca17dc12"
+  integrity sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==
 
 collapse-white-space@^1.0.2:
   version "1.0.6"
@@ -2912,6 +2901,18 @@ react-router@5.3.4:
     react-is "^16.6.0"
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
+
+react-timeago@^4.1.9:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/react-timeago/-/react-timeago-4.4.0.tgz#4520dd9ba63551afc4d709819f52b14b9343ba2b"
+  integrity sha512-Zj8RchTqZEH27LAANemzMR2RpotbP2aMd+UIajfYMZ9KW4dMcViUVKzC7YmqfiqlFfz8B0bjDw2xUBjmcxDngA==
+
+react-toastify@^9.1.1:
+  version "9.1.3"
+  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-9.1.3.tgz#1e798d260d606f50e0fab5ee31daaae1d628c5ff"
+  integrity sha512-fPfb8ghtn/XMxw3LkxQBk3IyagNpF/LIKjOBflbexr2AWxAH1MJgvnESwEwBn9liLFXgTKWgBSdZpw9m4OTHTg==
+  dependencies:
+    clsx "^1.1.1"
 
 react-truncate-markup@^3.0.0:
   version "3.0.1"
